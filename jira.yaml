@@ -25,15 +25,16 @@ spec:
     spec:
       containers:
       - name: jira
-        image: cptactionhank/atlassian-jira:latest
+        image: flyer8/atlassian-jira:latest
         ports:
         - containerPort: 8080
         volumeMounts:
         - name: jira-volume
           mountPath: /var/atlassian/jira
-#        - name: jira-volume-logs
-#          mountPath: /var/atlassian/jira/logs
       volumes:
+#        - name: jira-volume
+#          persistentVolumeClaim:
+#            claimName: postgres-pv-claim
         - name: jira-volume
           hostPath:
          # directory location on host
