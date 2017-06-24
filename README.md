@@ -28,3 +28,7 @@ Show status of Pods, Deployments, Services, persistentVolumeClaim:
 ```
 kubectl get po,deploy,svc,pvc --output=wide
 ```
+To scale the application execute:
+```
+kubectl scale deploy/jira --replicas=3
+```
