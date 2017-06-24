@@ -1,0 +1,31 @@
+watch -n1 kubectl top node
+kubectl get nodes --show-labels
+kubectl get pods,deployments,service --all-namespaces
+kubectl get po,deploy,svc
+kubectl describe deploy/bitbucket
+kubectl delete po,deploy,svc bitbucket
+kubectl exec -it bitbucket-4096791679-f4pcd -- /bin/bash
+#----------------------------------
+kubectl run bitbucket --port=7990 --port=7999 --image=atlassian/bitbucket-server
+kubectl expose deployments bitbucket --port=7990 --type=LoadBalancer
+#-----------------------------------
+kubectl run jira --port=8080 --image=cptactionhank/atlassian-jira:latest
+kubectl expose deployments jira --port=8080 --type=LoadBalancer
+#-----------------------------------
+kubectl run bamboo --port=8085 --image=cptactionhank/atlassian-bamboo:latest
+kubectl expose deployments bamboo --port=8085 --type=LoadBalancer
+#-----------------------------------
+kubectl run confluence --port=8090 --image=cptactionhank/atlassian-confluence:latest
+kubectl expose deployments confluence --port=8090 --type=LoadBalancer
+#==================================
+kubectl create -f /opt/atlassian/jira-deployment.yaml
+kubectl expose deployments jira --port=8080 --type=LoadBalancer
+kubectl get po,deploy,svc --output=wide
+-----------------------------------
+kubectl create configmap jira-configmap --from-file=/opt/atlassian/jira/
+#===================
+Create a database for JIRA (for example)
+CREATE USER admin WITH SUPERUSER PASSWORD 'admin';
+CREATE DATABASE jiradb WITH ENCODING 'UNICODE' LC_COLLATE 'C' LC_CTYPE 'C' TEMPLATE template0;
+or
+createdb -E UNICODE -l C -T template0 jiradb
