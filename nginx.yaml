@@ -1,0 +1,44 @@
+# autor: Sergey Shimanskiy
+# First should create cm by executing:
+# kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+  - port: 80
+    name: http
+  - port: 443
+    name: https
+  selector:
+    app: nginx
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: configmap-volume
+          mountPath: /etc/nginx/conf.d
+      volumes:
+#      - name: nginx-volume
+#        hostPath:
+#          path: /opt/atlassian/nginx
+      - name: configmap-volume
+        configMap:
+          name: nginxconfigmap

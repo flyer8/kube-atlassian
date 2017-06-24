@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: confluence
-        image: cptactionhank/atlassian-confluence:latest
+        image: flyer8/atlassian-confluence:latest
         ports:
         - containerPort: 8090
         volumeMounts:

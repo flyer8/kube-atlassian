@@ -1,11 +1,12 @@
-watch -n1 kubectl top node
+===status, mon===
+kubectl top node
 kubectl get nodes --show-labels
+kubectl get po,deploy,svc,pvc,cm --output=wide
 kubectl get pods,deployments,service --all-namespaces
-kubectl get po,deploy,svc
+kubectl get all --output=wide -l app=jira
 kubectl describe deploy/bitbucket
-kubectl delete po,deploy,svc bitbucket
-kubectl exec -it bitbucket-4096791679-f4pcd -- /bin/bash
-#----------------------------------
+
+===Single===
 kubectl run bitbucket --port=7990 --port=7999 --image=atlassian/bitbucket-server
 kubectl expose deployments bitbucket --port=7990 --type=LoadBalancer
 #-----------------------------------
@@ -17,13 +18,19 @@ kubectl expose deployments bamboo --port=8085 --type=LoadBalancer
 #-----------------------------------
 kubectl run confluence --port=8090 --image=cptactionhank/atlassian-confluence:latest
 kubectl expose deployments confluence --port=8090 --type=LoadBalancer
-#==================================
+
+#===Executing from YAML===
 kubectl create -f /opt/atlassian/jira-deployment.yaml
 kubectl expose deployments jira --port=8080 --type=LoadBalancer
-kubectl get po,deploy,svc --output=wide
------------------------------------
-kubectl create configmap jira-configmap --from-file=/opt/atlassian/jira/
-#===================
+kubectl create -f /opt/atlassian/jira.yaml
+kubectl apply -f /opt/atlassian/jira.yaml
+kubectl scale deploy/jira --replicas=3
+kubectl delete deploy,svc bitbucket
+kubectl exec -it bitbucket-4096791679-f4pcd -- /bin/bash
+kubectl logs po/jira-2128014098-0rphd
+kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
+
+#===Postgres===
 Create a database for JIRA (for example)
 CREATE USER admin WITH SUPERUSER PASSWORD 'admin';
 CREATE DATABASE jiradb WITH ENCODING 'UNICODE' LC_COLLATE 'C' LC_CTYPE 'C' TEMPLATE template0;
