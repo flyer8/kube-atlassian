@@ -1,0 +1,42 @@
+#
+# autor: Sergey Shimanskiy
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitbucket
+spec:
+  ports:
+    - port: 7990
+      name: bitbucket90
+    - port: 7999
+      name: bitbucket99
+  selector:
+    app: bitbucket
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bitbucket
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bitbucket
+    spec:
+      containers:
+      - name: bitbucket
+        image: cptactionhank/atlassian-bitbucket:latest
+        ports:
+        - containerPort: 7990
+        - containerPort: 7999
+        volumeMounts:
+        - name: bitbucket-volume
+          mountPath: /var/atlassian/bitbucket
+      volumes:
+        - name: bitbucket-volume
+          hostPath:
+         # directory location on host
+            path: /opt/atlassian/bitbucket

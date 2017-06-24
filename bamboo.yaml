@@ -1,0 +1,44 @@
+#
+# autor: Sergey Shimanskiy
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: bamboo
+spec:
+  ports:
+    - port: 8085
+      name: bamboo85
+  selector:
+    app: bamboo
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bamboo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bamboo
+    spec:
+      containers:
+      - name: bamboo
+        image: flyer8/atlassian-bamboo
+        ports:
+        - containerPort: 8085
+        volumeMounts:
+        - name: bamboo-volume
+          mountPath: /var/atlassian/bamboo
+#        - name: bamboo-volume-logs
+#          mountPath: /var/atlassian/bamboo/logs
+      volumes:
+        - name: bamboo-volume
+          hostPath:
+         # directory location on host
+            path: /opt/atlassian/bamboo
+#        - name: bamboo-volume-logs
+#          hostPath:
+#            path: /opt/atlassian/bamboo/logs
