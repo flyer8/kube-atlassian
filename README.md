@@ -10,7 +10,7 @@ or
 createdb -E UNICODE -l C -T template0 jiradb
 ```
 
-Create or apply Depployment, Service, Pod for Jira
+Create or update Depployment, Service, Pod for Jira
 ```
 kubectl apply -f jira.yaml
 ```
