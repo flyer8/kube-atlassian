@@ -3,7 +3,11 @@
 
 Create Depployment, Service, Pod and persistentVolumeClaim (Storage) for PostgreSQL:
 ```
-kubectl apply -f postgres.yaml
+kubectl create -f postgres.yaml
+```
+Show status of Pods, Deployments, Services, persistentVolumeClaim:
+```
+kubectl get po,deploy,svc,pvc --output=wide
 ```
 Login to Postgres Pod (Example):
 ```
@@ -24,11 +28,12 @@ Create or update  Pod, Depployment, Service for Jira:
 ```
 kubectl apply -f jira.yaml
 ```
-Show status of Pods, Deployments, Services, persistentVolumeClaim:
-```
-kubectl get po,deploy,svc,pvc --output=wide
-```
 To scale the application execute:
 ```
 kubectl scale deploy/jira --replicas=3
+```
+Deploy Nginx revers proxy:
+```
+kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
+kubectl apply -f /opt/atlassian/nginx.yaml
 ```
