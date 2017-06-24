@@ -1,5 +1,4 @@
-### Deploying Atlassian stack (Jira, Confluence, Bitbucket, Bamboo) in Kubernetes 
-### including PostgreSQL DB and Nginx LB
+### Deploying Atlassian stack (Jira, Confluence, Bitbucket, Bamboo) in Kubernetes cluster including PostgreSQL DB and Nginx Frontend
 
 Create Depployment, Service, Pod and persistentVolumeClaim (Storage) for PostgreSQL:
 ```
