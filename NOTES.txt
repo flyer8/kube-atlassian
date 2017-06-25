@@ -28,8 +28,9 @@ kubectl delete deploy,svc jira
 kubectl exec -it jira-4096791679-f4pcd -- /bin/bash
 kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
 
-# Make the node Ready,SchedulingDisabled
+#===Make the node Ready,SchedulingDisabled or Ready===
 kubectl cordon k8s-agent-ec080979-0
+kubectl uncordon k8s-agent-ec080979-0
 
 #===Postgres===
 Create a database for JIRA (for example)

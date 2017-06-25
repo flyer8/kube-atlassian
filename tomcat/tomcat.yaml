@@ -1,0 +1,37 @@
+#
+# autor: Sergey Shimanskiy
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: tomcat
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tomcat
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: tomcat
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: tomcatconfigmap-volume
+          mountPath: /usr/local/tomcat/conf
+      volumes:
+      - name: tomcatconfigmap-volume
+        configMap:
+          name: tomcatconfigmap
