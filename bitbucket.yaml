@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: bitbucket
-        image: cptactionhank/atlassian-bitbucket:latest
+        image: flyer8/atlassian-bitbucket:latest
         ports:
         - containerPort: 7990
         - containerPort: 7999

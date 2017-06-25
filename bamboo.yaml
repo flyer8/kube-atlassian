@@ -26,19 +26,14 @@ spec:
     spec:
       containers:
       - name: bamboo
-        image: flyer8/atlassian-bamboo
+        image: flyer8/atlassian-bamboo:latest
         ports:
         - containerPort: 8085
         volumeMounts:
         - name: bamboo-volume
           mountPath: /var/atlassian/bamboo
-#        - name: bamboo-volume-logs
-#          mountPath: /var/atlassian/bamboo/logs
       volumes:
         - name: bamboo-volume
           hostPath:
          # directory location on host
             path: /opt/atlassian/bamboo
-#        - name: bamboo-volume-logs
-#          hostPath:
-#            path: /opt/atlassian/bamboo/logs
