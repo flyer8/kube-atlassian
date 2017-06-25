@@ -1,12 +1,13 @@
-===status, mon===
+===status, monitoring===
 kubectl top node
 kubectl get nodes --show-labels
 kubectl get po,deploy,svc,pvc,cm --output=wide
 kubectl get pods,deployments,service --all-namespaces
 kubectl get all --output=wide -l app=jira
 kubectl describe deploy/bitbucket
+kubectl logs po/jira-2128014098-0rphd
 
-===Single===
+===Single running===
 kubectl run bitbucket --port=7990 --port=7999 --image=atlassian/bitbucket-server
 kubectl expose deployments bitbucket --port=7990 --type=LoadBalancer
 #-----------------------------------
@@ -20,14 +21,11 @@ kubectl run confluence --port=8090 --image=cptactionhank/atlassian-confluence:la
 kubectl expose deployments confluence --port=8090 --type=LoadBalancer
 
 #===Executing from YAML===
-kubectl create -f /opt/atlassian/jira-deployment.yaml
-kubectl expose deployments jira --port=8080 --type=LoadBalancer
 kubectl create -f /opt/atlassian/jira.yaml
 kubectl apply -f /opt/atlassian/jira.yaml
 kubectl scale deploy/jira --replicas=3
-kubectl delete deploy,svc bitbucket
-kubectl exec -it bitbucket-4096791679-f4pcd -- /bin/bash
-kubectl logs po/jira-2128014098-0rphd
+kubectl delete deploy,svc jira
+kubectl exec -it jira-4096791679-f4pcd -- /bin/bash
 kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
 
 #===Postgres===

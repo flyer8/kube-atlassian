@@ -1,6 +1,7 @@
 ### Deploying Atlassian stack (Jira, Confluence, Bitbucket, Bamboo) in Kubernetes cluster including PostgreSQL DB and Nginx Frontend
 
 Please, clone the repo to /opt/atlassian directory.
+
 Create Pod, Depployment, Service, persistentVolumeClaim (Storage) for PostgreSQL:
 ```
 kubectl create -f postgres.yaml
