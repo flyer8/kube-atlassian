@@ -1,4 +1,4 @@
-###Deploying Atlassian stack (Jira, Confluence, Bitbucket, Bamboo) in Kubernetes cluster including PostgreSQL and Nginx Frontend
+### Deploying Atlassian stack (Jira, Confluence, Bitbucket, Bamboo) in Kubernetes cluster including PostgreSQL and Nginx Frontend
 
 Kubernetes cluster was deployed in Azure cloud platform using Azure Container Service. 
 
