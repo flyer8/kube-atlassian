@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: bamboo
-        image: flyer8/atlassian-bamboo:latest
+        image: flyer8/atlassian-bamboo-mvn
         ports:
         - containerPort: 8085
         volumeMounts:

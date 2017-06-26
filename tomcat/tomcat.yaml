@@ -31,7 +31,12 @@ spec:
         volumeMounts:
         - name: tomcatconfigmap-volume
           mountPath: /usr/local/tomcat/conf
+        - name: managerconfigmap-volume
+          mountPath: /usr/local/tomcat/webapps/manager/META-INF
       volumes:
       - name: tomcatconfigmap-volume
         configMap:
           name: tomcatconfigmap
+      - name: managerconfigmap-volume
+        configMap:
+          name: managerconfigmap
