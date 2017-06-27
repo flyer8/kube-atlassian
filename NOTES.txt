@@ -3,6 +3,7 @@ kubectl top node
 kubectl get nodes --show-labels
 kubectl get po,deploy,svc,pvc,cm --output=wide
 kubectl get pods,deployments,service --all-namespaces
+kubectl get po,deploy,rs,svc,pvc,cm --output=wide -l app=jira
 kubectl get all --output=wide -l app=jira
 kubectl describe deploy/bitbucket
 kubectl logs po/jira-2128014098-0rphd
@@ -31,6 +32,10 @@ kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default
 #===Make the node Ready,SchedulingDisabled or Ready===
 kubectl cordon k8s-agent-ec080979-0
 kubectl uncordon k8s-agent-ec080979-0
+
+#===kubernetes-dashboard activating===
+kubectl get po,svc --output=wide --namespace kube-system
+kubectl apply -f /etc/kubernetes/addons/kubernetes-dashboard-service.yaml
 
 #===Postgres===
 Create a database for JIRA (for example)
