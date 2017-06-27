@@ -9,6 +9,8 @@ spec:
   ports:
     - port: 8085
       name: bamboo85
+    - port: 54663
+      name: bamboo663
   selector:
     app: bamboo
   type: LoadBalancer
@@ -29,6 +31,7 @@ spec:
         image: flyer8/atlassian-bamboo-mvn
         ports:
         - containerPort: 8085
+        - containerPort: 54663
         volumeMounts:
         - name: bamboo-volume
           mountPath: /var/atlassian/bamboo
