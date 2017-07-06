@@ -1,0 +1,51 @@
+# autor: Sergey Shimanskiy
+# GlusterFS cluster should be installed
+# First should create CM by executing:
+# kubectl create configmap nginx-configmap --from-file=/mnt/storage/etc/nginx/conf.d/default.conf
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+  - port: 80
+    name: http
+  - port: 443
+    name: https
+    targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: "/mnt/storage"
+          name: glusterfs-vol
+        - mountPath: "/etc/nginx/conf.d"
+          name: nginx-configmap-vol
+      volumes:
+      - name: glusterfs-vol
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv0
+          readOnly: false
+      - name: nginx-configmap-vol
+        configMap:
+          name: nginx-configmap
