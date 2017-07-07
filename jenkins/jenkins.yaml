@@ -1,0 +1,52 @@
+# autor: Sergey Shimanskiy
+# GlusterFS cluster should be installed
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+spec:
+  ports:
+  - name: "50000"
+    port: 50000
+    targetPort: 50000
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  - name: "8443"
+    port: 8443
+    targetPort: 8443
+  selector:
+    app: jenkins
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+      - name: jenkins
+        image: jenkins
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        - containerPort: 50000
+        volumeMounts:
+        - mountPath: "/var/jenkins_home"
+          name: glusterfs-vol
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
+      volumes:
+      - name: glusterfs-vol
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv0
+          readOnly: false

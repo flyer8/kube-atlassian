@@ -36,16 +36,16 @@ spec:
         - containerPort: 80
         - containerPort: 443
         volumeMounts:
-        - mountPath: "/mnt/storage"
+        - mountPath: "/usr/share/nginx/html"
           name: glusterfs-vol
-        - mountPath: "/etc/nginx/conf.d"
-          name: nginx-configmap-vol
+#        - mountPath: "/etc/nginx/conf.d"
+#          name: nginx-configmap-vol
       volumes:
       - name: glusterfs-vol
         glusterfs:
           endpoints: glusterfs-cluster
           path: gv0
           readOnly: false
-      - name: nginx-configmap-vol
-        configMap:
-          name: nginx-configmap
+#      - name: nginx-configmap-vol
+#        configMap:
+#          name: nginx-configmap

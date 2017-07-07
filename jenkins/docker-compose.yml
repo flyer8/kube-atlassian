@@ -1,0 +1,15 @@
+master:
+  image: jenkins
+  container_name: jenkins
+  restart: always
+  user: root
+  environment:
+#    - JAVA_OPTS=-Xmx512M
+    - JENKINS_OPTS=--httpPort=8080
+  ports:
+    - "50000:50000"
+    - "8080:8080"
+    - "8443:8443"
+  volumes:
+    - /var/lib/jenkins:/var/jenkins_home
+    - /tmp:/tmp
