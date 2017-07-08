@@ -1,5 +1,6 @@
 ===status, monitoring===
 kubectl top node
+kubectl get cs
 kubectl get nodes --show-labels
 kubectl get po,deploy,svc,pvc,cm --output=wide
 kubectl get pods,deployments,service --all-namespaces
