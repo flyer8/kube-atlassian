@@ -1,5 +1,4 @@
 Samples of commands:
 
-```
 kubectl expose deploy/ci-jenkins --port=8080 --type=NodePort
-```
+
