@@ -1,6 +1,7 @@
 # autor: Sergey Shimanskiy
-# First should create cm by executing:
-# kubectl create configmap nginxconfigmap --from-file=/opt/atlassian/nginx/default.conf
+# First should create ConfigMap by executing for example:
+# kubectl create configmap nginxconfigmap --from-file=nginx/default.conf
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,7 +14,7 @@ spec:
     name: https
   selector:
     app: nginx
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -32,10 +33,13 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 443
-        volumeMounts:
-        - name: configmap-volume
-          mountPath: /etc/nginx/conf.d
-      volumes:
-      - name: configmap-volume
-        configMap:
-          name: nginxconfigmap
+#        volumeMounts:
+#        - name: configmap-volume
+#          mountPath: /etc/nginx/conf.d
+#      volumes:
+#      - name: nginx-volume
+#        hostPath:
+#          path: /opt/atlassian/nginx
+#      - name: configmap-volume
+#        configMap:
+#          name: nginxconfigmap
