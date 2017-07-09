@@ -1,7 +1,7 @@
-### Samples of deploying CI/CD infra in Kubernetes cluster using Atlassian stack (Jira, Confluence, Bitbucket, Bamboo), PostgreSQL, Nginx, Tomcat, GlusterFS.
+### Samples of deploying CI/CD infra in Kubernetes cluster including Atlassian stack (Jira, Confluence, Bitbucket, Bamboo), PostgreSQL, Nginx, Tomcat, GlusterFS.
 Please refer to: https://flylabs.blogspot.ru/2017/06/atlassian-stack-in-kubernetes-cluster.html
 
-Kubernetes cluster was deployed in Azure cloud platform using Azure Container Service. 
+Kubernetes cluster was deployed in Azure cloud platform using Azure Container Service.
 
 The cluster consists of one master node and two agents nodes.
 
