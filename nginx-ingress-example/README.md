@@ -12,3 +12,7 @@ Show status:
 ```
 kubectl get all,ing,secret -o wide
 ```
+Show nginx config inside the pod:
+```
+kubectl exec -it nginx-ingress-rc-8xgff -- cat /etc/nginx/conf.d/default-cafe-ingress.conf
+```
