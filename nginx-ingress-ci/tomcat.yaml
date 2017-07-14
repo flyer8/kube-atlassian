@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: tomcat
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: tomcat
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: tomcat
+        ports:
+        - containerPort: 8080

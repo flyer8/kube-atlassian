@@ -1,0 +1,22 @@
+# Fanout ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ci-ingress
+spec:
+  tls:
+  - hosts:
+    - ci.flylab.local
+    secretName: ci-secret
+  rules:
+  - host: ci.flylab.local
+    http:
+      paths:
+      - path: /jenkins
+        backend:
+          serviceName: jenkins
+          servicePort: 8080
+      - path: /tomcat
+        backend:
+          serviceName: tomcat
+          servicePort: 8080

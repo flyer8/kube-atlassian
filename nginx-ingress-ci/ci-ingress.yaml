@@ -1,0 +1,24 @@
+# Name-based virtual hosts for the same IP address
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ci-ingress
+spec:
+  tls:
+  - hosts:
+    - jenkins.flylab.local
+    - tomcat.flylab.local
+    secretName: ci-secret
+  rules:
+  - host: jenkins.flylab.local
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins
+          servicePort: 8080
+  - host: tomcat.flylab.local
+    http:
+      paths:
+      - backend:
+          serviceName: tomcat
+          servicePort: 8080
