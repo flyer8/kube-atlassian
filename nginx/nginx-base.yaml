@@ -1,7 +1,6 @@
 # autor: Sergey Shimanskiy
 # First should create ConfigMap by executing for example:
-# kubectl create configmap nginxconfigmap --from-file=nginx/default.conf
-
+# kubectl create configmap nginx-cm --from-file=default.conf
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,7 +15,7 @@ spec:
     app: nginx
   type: NodePort
 ---
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nginx
@@ -33,13 +32,13 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 443
-#        volumeMounts:
-#        - name: configmap-volume
-#          mountPath: /etc/nginx/conf.d
-#      volumes:
-#      - name: nginx-volume
-#        hostPath:
-#          path: /opt/atlassian/nginx
-#      - name: configmap-volume
-#        configMap:
-#          name: nginxconfigmap
+        volumeMounts:
+        - name: configmap-volume
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: configmap-volume
+        configMap:
+          name: nginx-cm
+      # - name: nginx-volume
+      #   hostPath:
+      #     path: /opt/atlassian/nginx

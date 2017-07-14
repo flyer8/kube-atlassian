@@ -1,6 +1,5 @@
 # autor: Sergey Shimanskiy
 # GlusterFS cluster should be installed
-
 apiVersion: v1
 kind: Service
 metadata:

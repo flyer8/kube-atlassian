@@ -10,8 +10,8 @@ kubectl describe deploy/bitbucket
 kubectl logs po/jira-2128014098-0rphd
 
 ===Single running===
-kubectl run nginx --port=80 --port=443 --image=nginx
-kubectl expose deployments nginx --port=80 --port=443 --type=NodePort
+kubectl run httpd --port=80 --port=443 --image=httpd
+kubectl expose deployments httpd --port=80 --type=NodePort
 #-----------------------------------
 kubectl run bitbucket --port=7990 --port=7999 --image=atlassian/bitbucket-server
 kubectl expose deployments bitbucket --port=7990 --type=LoadBalancer
