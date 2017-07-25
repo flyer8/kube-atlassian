@@ -1,6 +1,6 @@
 # autor: Sergey Shimanskiy
 # First should create cm by executing:
-# kubectl apply configmap nginxconfigmap --from-file=atlassian.conf
+# kubectl apply configmap nginx-cm --from-file=default.conf
 apiVersion: v1
 kind: Service
 metadata:
@@ -38,4 +38,4 @@ spec:
       volumes:
       - name: configmap-volume
         configMap:
-          name: nginxconfigmap
+          name: nginx-cm
